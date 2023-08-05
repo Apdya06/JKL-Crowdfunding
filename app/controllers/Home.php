@@ -3,11 +3,11 @@
 class Home extends Controller {
     public function index() {
 
-        /* Isi Konten*/
-        // $data['projects'] = $this->model('projects')->showAllProjects();
+        $data['title'] = 'Beranda';
+        $data['projects'] = $this->model('projectsModel')->showAllProjects();
 
         $this->view('components/header');
-        $this->view('home/index');
+        $this->view('home/index', $data);
         $this->view('components/footer');
     }
-}
+}   

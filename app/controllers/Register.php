@@ -1,11 +1,10 @@
 <?php 
 
-class Projects extends Controller {
+class Register extends Controller {
     public function index() {
-        /* Isi Konten*/
 
         $this->view('components/header');
-        $this->view('projects/index');
+        $this->view('register/index');
         $this->view('components/footer');
     }
 }

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 30, 2023 at 05:41 PM
+-- Generation Time: Aug 05, 2023 at 10:39 AM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 7.4.29
 
@@ -42,13 +42,23 @@ CREATE TABLE `funding` (
 
 CREATE TABLE `projects` (
   `project_id` int(11) NOT NULL,
+  `user_id` int(11) DEFAULT NULL,
   `title` varchar(255) NOT NULL,
   `descriptions` text NOT NULL,
   `goal_amount` decimal(10,2) NOT NULL,
   `start_date` date NOT NULL,
   `end_date` date NOT NULL,
-  `status` enum('draft','live','successful','unsuccessful') NOT NULL
+  `status` enum('draft','live','successful','unsuccessful') NOT NULL DEFAULT 'draft',
+  `user_type` enum('Admin','Personal','Business','Charities') CHARACTER SET utf8 DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `projects`
+--
+
+INSERT INTO `projects` (`project_id`, `user_id`, `title`, `descriptions`, `goal_amount`, `start_date`, `end_date`, `status`, `user_type`) VALUES
+(1, 2, 'Donasi Personal 1', 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia, molestiae quas vel sint commodi repudiandae consequuntur voluptatum laborum numquam blanditiis harum quisquam eius sed odit fugiat iusto fuga praesentium optio, eaque rerum! Provident similique', '1000000.00', '2023-08-04', '2023-08-31', 'draft', 'Personal'),
+(2, 4, 'Bussiness Project 1', 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia, molestiae quas vel sint commodi repudiandae consequuntur voluptatum laborum numquam blanditiis harum quisquam eius sed odit fugiat iusto fuga praesentium optio, eaque rerum! Provident similique', '10000000.00', '2023-08-04', '2023-08-31', 'draft', 'Business');
 
 --
 -- Indexes for dumped tables
@@ -65,7 +75,9 @@ ALTER TABLE `funding`
 -- Indexes for table `projects`
 --
 ALTER TABLE `projects`
-  ADD PRIMARY KEY (`project_id`);
+  ADD PRIMARY KEY (`project_id`),
+  ADD KEY `user_id` (`user_id`),
+  ADD KEY `fk_user_type_projects` (`user_type`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -81,7 +93,7 @@ ALTER TABLE `funding`
 -- AUTO_INCREMENT for table `projects`
 --
 ALTER TABLE `projects`
-  MODIFY `project_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `project_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- Constraints for dumped tables
@@ -92,6 +104,14 @@ ALTER TABLE `projects`
 --
 ALTER TABLE `funding`
   ADD CONSTRAINT `funding_ibfk_1` FOREIGN KEY (`project_id`) REFERENCES `projects` (`project_id`);
+
+--
+-- Constraints for table `projects`
+--
+ALTER TABLE `projects`
+  ADD CONSTRAINT `fk_user_id` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`),
+  ADD CONSTRAINT `fk_user_type_proj` FOREIGN KEY (`user_type`) REFERENCES `users` (`user_type`),
+  ADD CONSTRAINT `fk_user_type_projects` FOREIGN KEY (`user_type`) REFERENCES `users` (`user_type`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

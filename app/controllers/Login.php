@@ -1,27 +1,15 @@
 <?php 
 
 class Login extends Controller {
-    // public function showLoginPage() {
     public function index() {
 
-        // $this->view('components/header');
+        $data['title'] = 'Login';
+        // $data['username'] = $this->model('userModel')->getUsername;
 
-        $this->view('login/index');
-
- 
-
-
-
-        // $this->view('components/footer');
-    }
+        $this->view('components/header');
+        $this->view('login/index', $data);
+        $this->view('components/footer');
     
-    //showLogin bawah
-    // $this->view('login/index');
-    public function submitLogin() {
-        
-        $data['judul'] = 'Login';
-        $this->view('login/index');
-
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $username = $_POST['username'];
             $password = $_POST['password'];
@@ -31,11 +19,16 @@ class Login extends Controller {
             if (empty($username) || empty($password)) {
                 // Flasher::setFlash('Username atau Password tidak boleh kosong', 'ditambahkan', 'danger');
                 header('Location: ' . BASEURL . '/login');
+                // header('Location: ./login');
+                echo "<script>console.log('0');</script>";
+
+                sleep(5);
+
                 exit;
             }
 
             // cek login untuk admin
-            if ($_POST['user_type' === 'admin']) {
+            if ($username === 'crowdAdmin' && $password === 'crowdadmin') {
                 session_start();
                 $_SESSION['user_id'] = 1;
                 $_SESSION['username'] = 'crowdAdmin';
@@ -51,19 +44,38 @@ class Login extends Controller {
                     $_SESSION['user_id'] = $user['id'];
                     $_SESSION['username'] = $user['username'];
                     $_SESSION['role'] = 'user';
-                    header('Location: ' . BASEURL . '/home');
+                    header('Location: ./home');
+                    echo "<script>console.log('1');</script>";
+                    sleep(5);
                     return;
                 } else {
                     // Flasher::setFlash('Password salah', 'ditambahkan', 'danger');
                     header('Location: ' . BASEURL . '/login');
+                    echo "<script>console.log('2');</script>";
+                    sleep(5);
+
                     exit;
                 }
             } else {
                 // Flasher::setFlash('Username tidak ditemukan', 'ditambahkan', 'danger');
                 header('Location: ' . BASEURL . '/login');
+                echo "<script>console.log('3');</script>";
+                sleep(5);
+
                 exit;   
             }
         }
+        
+    }
+    public function logout()
+    {
+        // Destroy the session and unset 'user_id' session variable
+        session_start();
+        session_unset(); // Unset all session variables
+        session_destroy(); // Destroy the session
 
+        // Redirect the user to the home page or any other appropriate page
+        header('Location: /'); // Replace "/" with the appropriate page URL
+        exit;
     }
 }

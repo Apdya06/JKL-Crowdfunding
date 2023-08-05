@@ -1,18 +1,21 @@
+<html>
+    <link rel="stylesheet" href="./css/style.css">
+</html>
+
 <?php
 
 class App {
-    protected $controller = 'home';
+    protected $controller = '';
     protected $method = 'index';
     protected $params = [];
     
     public function __construct()
     {
         $url = $this->parseURl();
-        
-        
         // check if the controller exists
         if(file_exists('../app/controllers/' . $url[0] . '.php')) {
             $this->controller = $url[0];
+            echo "<script>console.log('" . $url[0]. "');</script>";
             unset($url[0]); // remove the controller from the url
         }
 
@@ -23,6 +26,7 @@ class App {
         // // check if the method exists
         if(isset($url[1])) {
             if(method_exists($this->controller, $url[1])) {
+                // if($url[1] === 'showLoginPage'){}
                 $this->method = $url[1]; // set the method
                 unset($url[1]); // remove the method from the url
             }
@@ -32,10 +36,8 @@ class App {
         if(!empty($url)) {
             $this->params = array_values($url); // set the parameters
         }
-
         // // call the method and pass in the parameters
         call_user_func_array([$this->controller, $this->method], $this->params);
-
     }
 
     public function parseURl() {

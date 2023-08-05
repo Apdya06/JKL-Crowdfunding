@@ -8,7 +8,7 @@ Class users {
     }
 
     public function getUsername($username) {
-        $query = "SELECT * FROM users WHERE username = :username LIMIT 1";
+        $query = "SELECT * FROM users WHERE username = :username";
         $this->db->query($query);
         $this->db->bind('username', $username);
         return $this->db->single();

@@ -1,0 +1,23 @@
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    min-height: 80vh;
+}
+
+.flex-container {
+    display: flex;
+    justify-content: space-between;
+}
+.image-container {
+    flex: 1;
+    margin-right: 20px; 
+}
+.text-container {
+    flex: 1;
+}
+
+.btn-light {
+    border: solid rgb(208, 206, 206) 1px !important;
+    border-radius: 20px !important;
+
+}

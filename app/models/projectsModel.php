@@ -1,6 +1,6 @@
 <?php
 
-Class projects {
+Class projectsModel {
     private $db;
 
     public function __construct() {
