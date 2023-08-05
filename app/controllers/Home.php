@@ -3,7 +3,7 @@
 class Home extends Controller {
     public function index() {
 
-        $data['title'] = 'Beranda';
+        $data['title'] = 'Halaman Beranda';
         $data['projects'] = $this->model('projectsModel')->showAllProjects();
 
         $this->view('components/header');

@@ -12,11 +12,11 @@
                     <div class="card-header">Login</div>
                     <div class="card-body">
                         <form method="post">
-                            <div class="form-group">
+                            <div class="form-group mb-3">
                                 <label for="username">Username</label>
                                 <input type="text" name="username" id="username" class="form-control" required>
                             </div>
-                            <div class="form-group">
+                            <div class="form-group mb-3">
                                 <label for="password">Password</label>
                                 <input type="password" name="password" id="password" class="form-control" required>
                             </div>

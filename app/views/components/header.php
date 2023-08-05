@@ -7,7 +7,7 @@
     <header>
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <div class="container">
-                <a class="navbar-brand" href="./home">JKL-CROWDFUNDING</a>
+                <a class="navbar-brand" href="<?= BASEURL; ?>">JKL-CROWDFUNDING</a>
 
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -15,7 +15,7 @@
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav ml-auto">
                         <li class="nav-item active">
-                            <a class="nav-link" href="./home">Beranda</a>
+                            <a class="nav-link" href="<?= BASEURL; ?>">Beranda</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#">Tentang Kami</a>
@@ -25,7 +25,7 @@
                         </li>
                             <?php if(!isset($_SESSION['user_id  '])) { ?>
                                 <li class="nav-item">
-                                <a class="nav-link" href="./login">Login</a>
+                                <a class="nav-link" href="<?= BASEURL; ?>/login">Login</a>
                             <?php } else { ?>
                                 <li class="nav-item">
                                 <a class="nav-link" href="./logout">Logout</a>
